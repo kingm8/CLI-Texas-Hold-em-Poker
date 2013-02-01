@@ -1,0 +1,65 @@
+<project name="Poker" default="run">
+	<target name="compile" depends="clean">
+		<javac srcdir=".">
+			<include name="**/*.java"/>
+		</javac>
+	</target>
+   
+	<target name="authors">
+		<echo message= "Program author: Matt King" />
+	</target>
+   
+	<target name="clean">
+        <delete>
+            <fileset dir="." includes="**/*.class"/>
+        </delete>
+        <delete dir = "META-INF/"/>
+		<delete>
+			<fileset dir = "." includes="*.jar, *.zip"/>
+		</delete>
+        <delete>
+        	<fileset dir="." includes="**/*.*~"/>
+        </delete>
+    </target>
+    
+    <target name="jar">
+    	<jar
+			basedir = "."
+			jarfile ="poker.jar"
+			includes = "build.xml, cards/*.java, holdem/*.java, pokergame/*.java, sort/*.java, *.java" />
+	</target>
+	
+	<target name="exeJar" depends="compile">
+		<jar
+			destfile="FreshPoker.jar"
+			basedir="."
+			includes="**/*.class">
+			<manifest>
+				<attribute name="Built-By" value="Matthew King" />
+				<attribute name="Implementation-Title" value="Texas Hold'em Poker" />
+				<attribute name="Implementation-Version" value="1.0.1" />
+				<attribute name="Main-Class" value="pokergame.PokerDriver" />
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="zipSource">
+		<zip
+			basedir = "."
+			zipfile = "pokerSource.zip"
+			includes = "build.xml, cards/*.java, holdem/*.java, pokergame/*.java, sort/*.java, *.java" />
+	</target>
+	
+	<target name="zipSourceJar" depends="exeJar">
+		<zip
+			basedir = "."
+			zipfile = "poker.zip"
+			includes = "build.xml, cards/*.java, holdem/*.java, pokergame/*.java,
+						sort/*.java, *.java, FreshPoker.jar"/>
+	</target>
+   
+	<target name="run" depends="authors, compile">
+		<java classname="pokergame.PokerDriver" classpath="." fork="true"> 
+		</java>
+	</target>	
+</project>
