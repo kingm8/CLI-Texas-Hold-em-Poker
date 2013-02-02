@@ -13,7 +13,7 @@ public class HoldEmHand
 	public HoldEmHand(Card[] unsortHand)
 	{
 		handScore = 0;
-		Sorting.selectionSort(unsortHand);
+		Sorting.insertionSort(unsortHand);
 		this.hand = unsortHand;
 		intRep = new int[hand.length];
 		
